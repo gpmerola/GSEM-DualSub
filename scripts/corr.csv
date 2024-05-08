@@ -1,0 +1,28 @@
+code,trait,trait_detail,citation,year,dependent_variable,n_cases,n_controls,sample_size_discovery,doi,sampleprev,popprev
+ALCO04,drinks_per_week,weekly alcohol use,Liu et al.,2019,continuous,,,941280,https://doi.org/10.1038/s41588-018-0307-5,NA,NA
+NEUR04,neuroticism,Neuroticicm,Nagel et al.,2018,continuous,449484,,449484,https://doi.org/10.1038/s41588-018-0151-7,NA,NA
+RISK02,risky_behaviour,Automobile speeding propensity (risky behaviour),Karlsson Linnér et al.,2019,continuous,,,404291,https://doi.org/10.1038/s41588-018-0309-3,NA,NA
+RISK03,risky_behaviour,number of sexual partners (risky behaviour),Karlsson Linnér et al.,2019,continuous,,,370711,https://doi.org/10.1038/s41588-018-0309-3,NA,NA
+SMOK10,smoking_cigarets_per_day,,,,continuous,,,2669029,,NA,NA
+SUBJ01,subjective_well-being,"Subjective well-being: survey questions on life satisfaction, positive affect, or happiness",Okbay et al.,2016,continuous,,,298420,https://doi.org/10.1038/ng.3552,NA,NA
+BODY13B,bmi,BMI,,,continuous,,,155961,,NA,NA
+CHRO01,chronotype,Chronotype,Jones et al.,2016,continuous,,,128266,https://doi.org/10.1371/journal.pgen.1006125,NA,NA
+CHRO02,sleep_duration,Sleep Duration,Jones et al.,2016,continuous,,,128266,https://doi.org/10.1371/journal.pgen.1006125,NA,NA
+INCO03,social_deprivation,"Social deprivation, as measured using Townsend scores",Hill et al.,2016,continuous,,,112151,,NA,NA
+TIRE01,self-reported_tiredness,Self-reported tiredness,Deary et al.,2017,continuous,,,108976,https://doi.org/10.1038/mp.2017.5,NA,NA
+INCO02,household_income,"Household income, one person per household",Hill et al.,2016,continuous,,,`,,NA,NA
+PHYS01,physical_activtiy,Physical activity (objectively-measured),,2018,continuous,,,66224,,NA,NA
+AUTI09,autism,Autism spectrum disorder (SPARK+PGC +iPSYCH),Matoba et al.,2020,continuous,22916,32504,55420,https://doi.org/10.1038/s41398-020-00953-9,NA,NA
+BIPO03,bipolar_disorder,Bipolar disorder,Mullins et al.,2021,binary,41917,371549,413466,https://doi.org/10.1038/s41588-021-00857-4,"0,1013","0,02"
+CANU03,cannabis_use_disorder,,Johnson et al.,2020,binary,20916,363116,384032,https://doi.org/10.1016/S2215-0366(20)30339-4,"0,05446421132","0,0475"
+SCHI06,schizophrenia,Schizophrenia (PGC3) autosome results merged with X chromosome results,Trubetskoy et al.,2022,binary,76755,243649,320404,https://doi.org/10.1038/s41586-022-04434-5,"0,425","0,0048"
+ADHD06,adhd,ADHD,Demontis et al.,2022,binary,38691,186843,225534,https://doi.org/10.1038/s41588-022-01285-8,"0,1715528479","0,0529"
+DIAB06,diabetes_type_2,Type 2 diabetes 2017 BMI-adjusted,,2017,binary,26676,132532,159208,https://pubmed.ncbi.nlm.nih.gov/34879977/ PREVALENCE DOI,"0,1675543943","0,105"
+ANXI06,generalised_anxiety_disorder_symptoms,Generalised anxiety disorder symptoms,Purves et al.,2018,binary,19012,58113,77125,https://doi.org/10.1038/s41380-019-0559-1,"0,2465089141","0,043"
+ANOR21,anorexia_nervosa,anorexia nervosa,,2019,binary,15688,54218,69906,,"0,2244156439","0,0245"
+ALCD01,alcohol_dependence,Alcohol dependence (MIX),,2017,binary,14904,37944,52848,,"0,2820163488","0,125"
+BIPO04,,,,,,25060,449978,475038,,"0,05275367444","0,01"
+BIPO05,,,,,,6781,364075,370856,,"0,01828472507","0,01"
+MIGR01,,,,,,29209,172939,202320,,"0,1443703045","0,14"
+NPAT12,,,,,,27205,110881,138086,,"0,1970149038","0,00442"
+DEPR14,,,,,,164933,408383,573316,,"0,346","0,25"
