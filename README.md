@@ -1,4 +1,4 @@
-# gSEM_DoubleSub
+# gSEM Double Subtraction
 A package to perform double genomic subtraction through Genomic SEM
 
 ## Setup
