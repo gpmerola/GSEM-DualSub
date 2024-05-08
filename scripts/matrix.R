@@ -7,7 +7,7 @@ library(tidyr)
 library(dplyr)
 library(Matrix)
 
-setwd(file.path("~", "proj", "NewGwasSub"))
+setwd(file.path("~", "proj", "NewGwasSub")) ###############################################################################
 
 dir_path <- readLines("dir.txt", warn = FALSE)
 if (length(dir_path) > 0 && dir.exists(dir_path[1])) {
