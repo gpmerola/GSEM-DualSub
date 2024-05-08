@@ -96,7 +96,7 @@ trait_labels <- setNames(trait_names, c("ALCO04", "NEUR04", "RISK02", "RISK03", 
                                         "ALCD01", "BIPO04", "BIPO05", "MIGR01", "NPAT12", "DEPR14", "Mania"))
 
 
-mega_correlation <- readRDS("MegaCorrelation.rds")
+mega_correlation <- readRDS("Correlation_output.rds")
 
 rownames(mega_correlation$S_Stand) <- trait_names
 colnames(mega_correlation$S_Stand) <- trait_names
