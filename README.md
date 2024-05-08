@@ -16,7 +16,7 @@ To install the required R packages, run the following command:
 
 ```r
 source("requirements.R")
-```r
+r```
 
 ### Python Dependencies
 To install the required Python packages, run the following command:
