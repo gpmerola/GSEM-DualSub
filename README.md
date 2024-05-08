@@ -21,4 +21,7 @@ source("requirements.R")
 ### Python Dependencies
 To install the required Python packages, run the following command:
 
+```console
 pip install -r requirements.txt
+```
+
