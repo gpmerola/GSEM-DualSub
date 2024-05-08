@@ -1,12 +1,6 @@
 # gSEM_DoubleSub
 A package to perform double genomic subtraction through Genomic SEM
 
-
-
-# My Project
-
-This is a repository for my project that uses R and Python for data analysis and visualization.
-
 ## Setup
 This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python.
 
