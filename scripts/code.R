@@ -34,17 +34,35 @@ hm3 = "~/proj/CommonFiles/w_hm3.snplist"  ######################################
 traitnames =c("SCZ", "MDD", "BD") 
 latentnames =c("Psychosis", "Depression", "Mania")
 
-infofilter = 0.9 ############################################################
-maffilter = 0.05 ############################################################
+infofilter = 0.9
+maffilter = 0.05
 ld <- "~/proj/CommonFiles/eur_w_ld_chr/" ############################################################
 wld <- ld
 
 sample.prev <- c(0.425, 0.346, 0.1013) ############################################################
 population.prev <- c(0.01, 0.10, 0.02) ############################################################
-OLS_vector=c(TRUE, TRUE, TRUE) ############################################################
-linprob_vector= c(FALSE, FALSE, FALSE) ############################################################
+
 se.logit_vector = c(FALSE, FALSE, FALSE) ############################################################
+OLS_vector=c(TRUE, TRUE, TRUE)
+linprob_vector= c(FALSE, FALSE, FALSE)
 ncores = 32 ############################################################
+
+ corr <- read.csv("/users/k2473476/proj/NewGwasSub/corr.csv") ###############################################################################
+ corr$sampleprev <- as.character(corr$sampleprev)
+ corr$popprev <- as.character(corr$popprev)
+
+ # Replacing "," with "." in the columns
+ corr$sampleprev <- gsub(",", ".", corr$sampleprev)
+ corr$popprev <- gsub(",", ".", corr$popprev)
+
+ # Converting the columns back to numeric
+ corr$sampleprev <- as.numeric(corr$sampleprev)
+ corr$popprev <- as.numeric(corr$popprev)
+
+ corr_input <- paste0("/scratch/prj/gwas_sumstats/munged/", corr$code, ".sumstats.gz") ############# path to munged sumstats
+ corr_input <- c(corr_input)
+ corr_input <- c(corr_input, "Mania_Supermunged.gz")
+
 
 
 print("---------------------------------------------------------PreprocessingFinished - SubGwas")
@@ -55,25 +73,22 @@ print("---------------------------------------------------------Part 1 Started -
 munge(files = files_input,
       hm3 = hm3,
       trait.names=traitnames, 
-      #N = samplesizes,
       info.filter = infofilter, 
       maf.filter = maffilter)
 
 LDSCtraits <- paste0(traitnames, ".sumstats.gz")
-LDSCinput<-traitnames
 
-ldsc_file<-ldsc(traits = LDSCtraits,sample.prev = sample.prev, population.prev = population.prev, ld = ld, wld = wld, trait.names = LDSCinput)
+ldsc_file <- ldsc(traits = LDSCtraits,sample.prev = sample.prev, population.prev = population.prev, ld = ld, wld = wld, trait.names = traitnames)
 saveRDS(ldsc_file, file="LDSC_main.rds")
 
 SNP_files <- sumstats(files = files_input,
                       ref = ref_file,
                       trait.names=traitnames, 
-                      #N = samplesizes,
                       info.filter = infofilter, 
                       maf.filter = maffilter,
+                      se.logit = se.logit_vector,
                       OLS=OLS_vector,
-                      linprob=linprob_vector,
-                      se.logit = se.logit_vector)
+                      linprob=linprob_vector)
 
 saveRDS(SNP_files, file="SNP_files.rds")
   
@@ -106,13 +121,12 @@ model <-
          MDD~~0*BD
          MDD~~0*MDD
          '
-output_without_SNPs<-usermodel(LDSCoutput,estimation="DWLS",model=model, CFIcalc = TRUE, std.lv=TRUE)
+model_LD <- usermodel(LDSCoutput,estimation="DWLS",model=model, CFIcalc = TRUE, std.lv=TRUE)
+print(model_LD)
 
-print(output_without_SNPs)
-
-output_file_without_SNPs <- "model_without_SNPs.csv"
-write.csv(output_without_SNPs, file = output_file_without_SNPs, row.names = FALSE)
-cat("Output exported to", output_file_without_SNPs)
+output_file <- "model_LD.csv"
+write.csv(model_LD, file = output_file, row.names = FALSE)
+cat("Output exported to", output_file)
 
 print("---------------------------------------------------------Part 2 Finished - Model")
 }
@@ -125,6 +139,7 @@ LDSCoutput <- readRDS(file="LDSC_main.rds")
 SNP_files <- readRDS(file="SNP_files.rds")
 
 if ("r" %in% args) {
+  print("Running in Test Mode")
   SNP_files <- SNP_files %>% 
     filter(CHR == 2)
 }
@@ -168,7 +183,6 @@ output <- userGWAS(
   TWAS = F,
   MPI = F,
   sub = sub,
-
   estimation = "DWLS", 
   toler = 1e-40,
   GC="standard"
@@ -176,8 +190,7 @@ output <- userGWAS(
 saveRDS(output, "output.rds")
 
 data.table::fwrite(x = output[[1]],file = paste0(latentnames[1], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
-#data.table::fwrite(x = output[[2]],file = paste0(latentnames[2], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
-#data.table::fwrite(x = output[[3]],file = paste0(latentnames[3], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
+
 print("---------------------------------------------------------Part 3 Finished - GWAS")
 }
 
@@ -208,36 +221,13 @@ print("---------------------------------------------------------Part 4 Finished 
 
 if("5" %in% args){
   print("---------------------------------------------------------Part 5 Started - Genetic Correlation")
- corr <- read.csv("/users/k2473476/proj/NewGwasSub/corr.csv") ###############################################################################
- corr$sampleprev <- as.character(corr$sampleprev)
- corr$popprev <- as.character(corr$popprev)
 
- # Replacing "," with "." in the columns
- corr$sampleprev <- gsub(",", ".", corr$sampleprev)
- corr$popprev <- gsub(",", ".", corr$popprev)
-
- # Converting the columns back to numeric
- corr$sampleprev <- as.numeric(corr$sampleprev)
- corr$popprev <- as.numeric(corr$popprev)
-
- files_input <- paste0("/scratch/prj/gwas_sumstats/munged/", corr$code, ".sumstats.gz")
- files_input <- c(files_input)
-
- files_input <- c(files_input, "Mania_Supermunged.gz")
-
- print(length(files_input))
-
- traitnames =corr$code
- samplesizes <- corr$sample_size_discovery
- sample.prev <- corr$sampleprev
- population.prev <- corr$popprev
- 
- LDSCoutput<-ldsc(traits = files_input, 
+ Correlation_output<-ldsc(traits = corr_input, 
                  sample.prev = corr$sampleprev, 
                  population.prev = corr$popprev, 
                  ld = ld, wld = wld, stand = T)
 
- saveRDS(LDSCoutput, file="Correlation_output.rds")
+ saveRDS(Correlation_output, file="Correlation_output.rds")
  print("---------------------------------------------------------Part 5 Finished - Genetic Correlation")
 }
 
