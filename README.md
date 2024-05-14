@@ -37,8 +37,9 @@ Follow these steps to perform double genomic subtraction:
   1) Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
 
   2) Choose Input Settings: Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
-     
-      ```1: Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
+
+     ```
+      1: Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
       
       2: Model Fitting - Fits the specified structural equation model using the input data.
       
