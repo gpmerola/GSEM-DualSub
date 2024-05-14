@@ -47,7 +47,7 @@ OLS_vector=c(TRUE, TRUE, TRUE)
 linprob_vector= c(FALSE, FALSE, FALSE)
 ncores = 32 ############################################################
 
- corr <- read.csv("/users/k2473476/proj/NewGwasSub/corr.csv") ###############################################################################
+ corr <- read.csv("/users/k2473476/proj/NewGwasSub/Correlation_input.csv") ###############################################################################
  corr$sampleprev <- as.character(corr$sampleprev)
  corr$popprev <- as.character(corr$popprev)
 
