@@ -31,7 +31,7 @@ files_input = c( ###############################################################
 ref_file = "~/proj/CommonFiles/reference.1000G.maf.0.005.txt.gz" ####################################################
 hm3 = "~/proj/CommonFiles/w_hm3.snplist"  ############################################################
 
-traitnames =c("SCZ", "MDD", "BD") 
+traitnames =c("SCZ", "MDD", "BD")
 latentnames =c("Psychosis", "Depression", "Mania")
 
 infofilter = 0.9
@@ -121,6 +121,14 @@ model <-
          MDD~~0*BD
          MDD~~0*MDD
          '
+model <- gsub("Psychosis", latentnames[1], model)
+model <- gsub("Depression", latentnames[2], model)
+model <- gsub("Mania", latentnames[3], model)
+model <- gsub("SCZ", traitnames[1], model)
+model <- gsub("MDD", traitnames[2], model)
+model <- gsub("BD", traitnames[3], model)
+
+  
 model_LD <- usermodel(LDSCoutput,estimation="DWLS",model=model, CFIcalc = TRUE, std.lv=TRUE)
 print(model_LD)
 
@@ -171,7 +179,13 @@ model <-
 
          SNP~~SNP
          '
-  
+model <- gsub("Psychosis", latentnames[1], model)
+model <- gsub("Depression", latentnames[2], model)
+model <- gsub("Mania", latentnames[3], model)
+model <- gsub("SCZ", traitnames[1], model)
+model <- gsub("MDD", traitnames[2], model)
+model <- gsub("BD", traitnames[3], model)
+
 output <- userGWAS(
   covstruc = LDSCoutput, 
   SNPs = SNP_files,
