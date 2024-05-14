@@ -1,64 +1,124 @@
-import pandas as pd
 import matplotlib.pyplot as plt
+import pandas as pd
+from matplotlib import cm
+import numpy as np
 
-# Read the CSV file into a pandas DataFrame
-merged_df = pd.read_csv("trait_correlation_data.csv")
+# Load the data
+data = pd.read_csv('trait_correlation_data.csv')
 
-# Define cluster assignments (you need to define these based on your specific requirements)
-clusters = ['Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Psychiatric', 'Risky Behaviour', 'Risky Behaviour', 'Risky Behaviour', 'Risky Behaviour', 'Risky Behaviour', 'Risky Behaviour', 'Social', 'Social', 'Social', 'Somatic', 'Somatic', 'Somatic', 'Somatic', 'Somatic', 'Somatic', 'Somatic', 'Somatic']
-inverted_clusters = clusters[::-1]
+# Define a function to classify the clusters
+trait_to_cluster = dict(zip(data['Trait'], data['Cluster']))
 
-# Assign clusters to DataFrame
-merged_df['Cluster'] = inverted_clusters
+def assign_cluster(trait):
+    # Lookup the trait in the dictionary
+    return trait_to_cluster.get(trait, 'Unknown')
 
-# Define bar width and colors
-maniacol = '#B22222'  # Firebrick
-bdcolor = '#4169E1'  # RoyalBlue
-bar_width = 0.6
-bar_spacing = 2  # Space between individual bars within a cluster
+# Apply the function to create the new Cluster column
+data['Cluster'] = data['Trait'].apply(assign_cluster)
 
-# Dynamic adjustment for spacing between clusters
-cluster_spacing = 2.0  # Increased space between clusters
+data.to_csv('output.txt', index=False, sep='\t')
 
-# Create a list of unique clusters
-unique_clusters = merged_df['Cluster'].unique()
 
-# Adjust indices dynamically for bar plotting to create more space between pairs and clusters
-cluster_indices = []
-current_position = 0
-for cluster in unique_clusters:
-    cluster_mask = merged_df['Cluster'] == cluster
-    num_traits_in_cluster = cluster_mask.sum()
-    for _ in range(num_traits_in_cluster):
-        cluster_indices.append(current_position)
-        current_position += bar_spacing  # Adjust for the next bar
-    current_position += cluster_spacing  # Extra spacing between different clusters
+# Predefined colors for the initial clusters
+initial_colors = [
+    '#ffcccb',  # Light red
+    '#add8e6',  # Light blue
+    '#90ee90',  # Light green
+    '#ffffe0',  # Light yellow
+    '#dda0dd'   # Light purple
+]
 
-# Adjust figure size dynamically based on the total height needed
-fig_height = len(cluster_indices) * (bar_width + bar_spacing) / 2
-plt.figure(figsize=(12, 8))
+# Identify unique clusters and separate into known and remaining
+clusters_unique = data['Cluster'].unique()
+num_initial = len(initial_colors)
+remaining_clusters = clusters_unique[num_initial:]
 
-# Plot bars with dynamic positioning
-for i, (index, row) in enumerate(zip(cluster_indices, merged_df.itertuples())):
-    plt.barh(index, row.Correlation_Mania, height=bar_width, color=maniacol, alpha=0.7, label='Mania' if i == 0 else "", edgecolor='black', linewidth=1)
-    plt.barh(index + bar_width, row.Correlation_BD, height=bar_width, color=bdcolor, alpha=0.7, label='Bipolar Disorder' if i == 0 else "", edgecolor='black', linewidth=1)
+# Assign initial colors to the first clusters
+cluster_colors = {cluster: color for cluster, color in zip(clusters_unique[:num_initial], initial_colors)}
 
-    # Add error bars with adjusted positions
-    plt.errorbar(merged_df['Correlation_Mania'], cluster_indices, xerr=merged_df['SE_Mania'], fmt='none', ecolor='black', capsize=2, elinewidth=0.5)
-    plt.errorbar(merged_df['Correlation_BD'], [x + bar_width for x in cluster_indices], xerr=merged_df['SE_BD'], fmt='none', ecolor='black', capsize=2, elinewidth=0.5)
+# Generate dynamic colors for remaining clusters
+num_remaining = len(remaining_clusters)
+colormap = plt.colormaps['tab10'](num_remaining)
 
-# Customize plot
-plt.yticks([x + bar_width / 2 for x in cluster_indices], merged_df['Trait'])
-plt.ylabel('Trait')
-plt.xlabel('Correlation')
-plt.legend()
+for i, cluster in enumerate(remaining_clusters):
+    cluster_colors[cluster] = colormap(i)
 
-# Adjust layout to minimize whitespace and ensure visibility
-plt.tight_layout()
-plt.grid(False)
+# Ensure 'Unknown' has a distinct color if not already assigned
+if 'Unknown' not in cluster_colors:
+    cluster_colors['Unknown'] = '#d3d3d3'  # Light gray
 
-# Save the plot as a PNG file
-plt.savefig('trait_correlation_plot.png', format='png', bbox_inches='tight', dpi=300)
+# Function to create a horizontally oriented plot with extended x-axis limits
+def plot_correlations_extended(data, horizontal=False):
 
-# Show the plot
-plt.show()
+    if horizontal:
+        # Sort the DataFrame by Trait column in reverse order to flip horizontally
+        data = data[::-1].reset_index(drop=True)
+
+    if horizontal:
+        fig, ax = plt.subplots(figsize=(18, 12))  # Wider plot
+        # Plot each correlation with vertical error bars
+        ax.errorbar(data.index, data['Correlation_Mania'], yerr=data['SE_Mania'], fmt='o', color='magenta', label='Correlation with Mania', capsize=5)
+        ax.errorbar(data.index, data['Correlation_BD'], yerr=data['SE_BD'], fmt='^', color='blue', label='Correlation with Bipolar Disorder', capsize=5)
+
+        # Labels and title
+        #ax.set_xlabel('Trait')
+        ax.set_ylabel('Correlation')
+        ax.axhline(0, color='grey', linewidth=0.8)  # Add a horizontal line at correlation=0 for reference
+
+        ax.set_xticks(data.index)
+        ax.set_xticklabels(data['Trait'], ha='right', rotation=45)  # Rotate labels for better readability
+
+        # Extend the y-axis limits to -1 to 1.1
+        ax.set_ylim([-1, 1.1])
+
+        # Color code the background for each cluster
+        for cluster, color in cluster_colors.items():
+            indices = data[data['Cluster'] == cluster].index
+            if len(indices) > 0:
+                ax.axvspan(indices[0] - 0.5, indices[-1] + 0.5, color=color, alpha=0.3)
+
+        # Adjust layout
+        plt.subplots_adjust(bottom=0.25)
+
+    else:
+        fig, ax = plt.subplots(figsize=(12, 18))  # Taller plot
+        # Plot each correlation with horizontal error bars
+        ax.errorbar(data['Correlation_Mania'], data.index, xerr=data['SE_Mania'], fmt='o', color='magenta', label='Correlation with Mania', capsize=5)
+        ax.errorbar(data['Correlation_BD'], data.index, xerr=data['SE_BD'], fmt='^', color='blue', label='Correlation with Bipolar Disorder', capsize=5)
+
+        # Labels and title
+        ax.set_ylabel('Trait')
+        ax.set_xlabel('Correlation')
+        ax.set_title('Correlations of Traits with Mania and Bipolar Disorder')
+        ax.axvline(0, color='grey', linewidth=0.8)  # Add a vertical line at correlation=0 for reference
+
+        ax.set_yticks(data.index)
+        ax.set_yticklabels(ha='right')  # Align y-tick labels to the right
+
+        # Extend the x-axis limits to -1 to 1.1
+        ax.set_xlim([-1, 1.1])
+
+        # Color code the background for each cluster
+        for cluster, color in cluster_colors.items():
+            indices = data[data['Cluster'] == cluster].index
+            if len(indices) > 0:
+                ax.axhspan(indices[0] - 0.5, indices[-1] + 0.5, color=color, alpha=0.3)
+
+        # Adjust layout
+        plt.subplots_adjust(left=0.25)
+
+    # Add a legend
+    if horizontal:
+        ax.legend(loc='upper left', bbox_to_anchor=(0.07, 0.1), borderaxespad=0, frameon=True)
+
+    if horizontal == False:
+        ax.legend(loc='upper left', bbox_to_anchor=(0.07, 0.9), borderaxespad=0, frameon=True)
+
+    # Improve layout to prevent cutting off labels
+    plt.tight_layout()
+    plt.savefig('trait_correlation_plot_with_clusters_background.png', format='png', bbox_inches='tight', dpi=300)
+
+    #plt.show()
+
+# Call the function with horizontal=True or False depending on desired orientation
+plot_correlations_extended(data, horizontal=True)
