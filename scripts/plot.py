@@ -4,7 +4,7 @@ from matplotlib import cm
 import numpy as np
 
 # Load the data
-data = pd.read_csv('trait_correlation_data.csv')
+data = pd.read_csv('Correlation_input.csv')
 
 # Define a function to classify the clusters
 trait_to_cluster = dict(zip(data['Trait'], data['Cluster']))
