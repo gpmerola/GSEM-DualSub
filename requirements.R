@@ -1,7 +1,31 @@
-install.packages(c("GenomicSEM", "readr", "dplyr", "ggplot2", "qqman", "data.table", "utils", "reshape2", "corrplot", "forcats", "tidyr", "Matrix"))
+# List of packages required
+packages <- c(
+  "corrplot",
+  "ggplot2",
+  "dplyr",
+  "Matrix",
+  "shru",
+  "GenomicSEM",
+  "readr",
+  "qqman",
+  "data.table",
+  "utils",
+  "reshape2",
+  "devtools"
+)
 
-# Install from GitHub
-if (!requireNamespace("remotes", quietly = TRUE)) {
-  install.packages("remotes")
+install_if_missing <- function(pkg) {
+  if (!require(pkg, character.only = TRUE)) {
+    install.packages(pkg, dependencies = TRUE)
+  }
 }
-remotes::install_github("johanzvrskovec/shru")
+
+invisible(lapply(packages, install_if_missing))
+
+if (!require("GenomicSEM", character.only = TRUE)) {
+  devtools::install_github("GenomicSEM/GenomicSEM")
+}
+
+if (!require("shru", character.only = TRUE)) {
+  devtools::install_github("GenomicsMEL/shru")
+}
