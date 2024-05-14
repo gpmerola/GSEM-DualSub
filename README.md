@@ -43,7 +43,8 @@ Follow these steps to perform double genomic subtraction:
       
       2: Model Fitting - Fits the specified structural equation model using the input data.
       
-      3: GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
+      3: GSEM - Performs the most computationally intensive step, running a synthethic GWAS 
+     on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
       
       4: Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
       
