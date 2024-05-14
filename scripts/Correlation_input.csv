@@ -1,0 +1,35 @@
+code,trait,Cluster,sampleprev,popprev
+BIPO03,Bipolar Disorder,Psychiatric,"0,1013","0,02"
+BIPO04,BD I,Psychiatric,"0,05275367444","0,01"
+BIPO05,BD II,Psychiatric,"0,01828472507","0,01"
+SCHI06,Schizophrenia,Psychiatric,"0,425","0,0048"
+DEPR14,MDD,Psychiatric,"0,346","0,25"
+NEUR04,Neuroticism,Psychiatric,,
+AUTI09,Autism,Psychiatric,,
+ADHD06,ADHD,Psychiatric,"0,1715528479","0,0529"
+ANXI06,GAD,Psychiatric,"0,2465089141","0,043"
+ANOR21,Anorexia Nervosa,Psychiatric,"0,2244156439","0,0245"
+ALCO04,Alcohol Use,Substance abuse and Risky behaviour,,
+ALCD01,Alcohol Dependence Disorder,Substance abuse and Risky behaviour,"0,2820163488","0,125"
+RISK02,Risky Behaviour (speed),Substance abuse and Risky behaviour,,
+RISK03,Risky Behaviour (sex),Substance abuse and Risky behaviour,,
+SMOK10,Smoking,Substance abuse and Risky behaviour,,
+CANU03,Cannabis Use,Substance abuse and Risky behaviour,"0,05446421132","0,0475"
+SUBJ01,Subjective Well-Being,Social,,
+INCO02,Income,Social,,
+INTE03,IQ,Social,,
+EDUC01,Educational Attainment,Social,,
+EDUC05,Educational Attainment (Non-Cog),Social,,
+EDUC06,Educational Attainment (Cog),Social,,
+INCO03,Social Deprivation,Social,,
+BODY14,BMI,Somatic,,
+CHRO01,Chronotype,Somatic,,
+CHRO02,Sleep Duration,Somatic,,
+TIRE01,Tiredness,Somatic,,
+PHYS01,Physical Activity,Somatic,,
+DIAB06,Diabetes type 2,Somatic,"0,1675543943","0,105"
+MIGR01,Migraine,Neurologic,"0,1443703045","0,14"
+NPAT12,ALS,Neurologic,"0,1970149038","0,00442"
+ALZH01,Alzheimer's Disease,Neurologic,"0,3140209003","0,015"
+PARK01,Parkinson's Disease,Neurologic,"0,01956394449","0,003"
+EPIL01,Epilepsy,Neurologic,"0,2495050641","0,0075"
