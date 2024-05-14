@@ -203,7 +203,7 @@ output <- userGWAS(
 )
 saveRDS(output, "output.rds")
 
-data.table::fwrite(x = output[[1]],file = paste0(latentnames[1], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
+data.table::fwrite(x = output[[3]],file = paste0(latentnames[3], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
 
 print("---------------------------------------------------------Part 3 Finished - GWAS")
 }
