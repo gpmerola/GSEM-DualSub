@@ -36,8 +36,16 @@ Follow these steps to perform double genomic subtraction:
 
   1) Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
 
-  2) Run the Script: Execute the main script to perform the subtraction:
+  2) Choose Input Settings: Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
+              1: DESCRIPTION
+              2: DESCRIPTION
+              3: DESCRIPTION
+              4: DESCRIPTION
+              5: DESCRIPTION
+              6: DESCRIPTION
+              r: DESCRIPTION
 
+  3) Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command:
 
 ```console
 cd scripts
