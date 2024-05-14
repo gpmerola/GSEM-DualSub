@@ -38,13 +38,14 @@ Follow these steps to perform double genomic subtraction:
 
   2) Choose Input Settings: Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
      
-              1: DESCRIPTION
-              2: DESCRIPTION
-              3: DESCRIPTION
-              4: DESCRIPTION
-              5: DESCRIPTION
-              6: DESCRIPTION
-              r: DESCRIPTION
+                      1: Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
+                      2: Model Fitting - Fits the specified structural equation model using the input data.
+                      3: GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
+                      4: Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
+                      5: Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
+                      6: Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
+The parts must be run in order, with "3" being the most computationally intensive step.
+
 
   3) Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command:
 
