@@ -57,7 +57,7 @@ The parts must be run in order, with "3" being the most computationally intensiv
 
 ```console
 cd scripts
-Rscript main.R  "working_directory" "1" "2" "3" "4" "5" "6" "r"
+Rscript main.R  "working_directory" 1 2 3 4 5 6 "r"
 ```
 
   4) Plotting: If needed, the plotting script for genetic correlation can be run:
