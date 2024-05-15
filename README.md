@@ -60,4 +60,10 @@ cd scripts
 Rscript main.R "1" "2" "3" "4" "5" "6" "r" 
 ```
 
+  4) Plotting: If needed, the plotting script for genetic correlation can be run:
+
+```console
+python plot.py
+```
+
 
