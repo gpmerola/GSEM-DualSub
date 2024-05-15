@@ -35,7 +35,7 @@ pip install -r requirements.txt
 
   1) Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
 
-  2) Choose Input Settings: Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
+  2) Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
 
      ```
       1: Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
@@ -57,7 +57,7 @@ The parts must be run in order, with "3" being the most computationally intensiv
 
 ```console
 cd scripts
-Rscript main.R "1" "2" "3" "4" "5" "6" "r" 
+Rscript main.R  "working_directory" "1" "2" "3" "4" "5" "6" "r"
 ```
 
   4) Plotting: If needed, the plotting script for genetic correlation can be run:
