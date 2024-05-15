@@ -1,0 +1,35 @@
+"code","trait","Cluster","sampleprev","popprev"
+"BIPO03.sumstats.gz","BD","Psychiatric","0,1013","0,02"
+"BIPO04.sumstats.gz","BD I","Psychiatric","0,05275367444","0,01"
+"BIPO05.sumstats.gz","BD II","Psychiatric","0,01828472507","0,01"
+"SCHI06.sumstats.gz","Schizophrenia","Psychiatric","0,425","0,0048"
+"DEPR14.sumstats.gz","MDD","Psychiatric","0,346","0,25"
+"NEUR04.sumstats.gz","Neuroticism","Psychiatric",,
+"AUTI09.sumstats.gz","Autism","Psychiatric",,
+"ADHD06.sumstats.gz","ADHD","Psychiatric","0,1715528479","0,0529"
+"ANXI06.sumstats.gz","GAD","Psychiatric","0,2465089141","0,043"
+"ANOR21.sumstats.gz","Anorexia Nervosa","Psychiatric","0,2244156439","0,0245"
+"ALCO04.sumstats.gz","Alcohol Use","Substance abuse and Risky behaviour",,
+"ALCD01.sumstats.gz","Alcohol Dependence Disorder","Substance abuse and Risky behaviour","0,2820163488","0,125"
+"RISK02.sumstats.gz","Risky Behaviour (speed)","Substance abuse and Risky behaviour",,
+"RISK03.sumstats.gz","Risky Behaviour (sex)","Substance abuse and Risky behaviour",,
+"SMOK10.sumstats.gz","Smoking","Substance abuse and Risky behaviour",,
+"CANU03.sumstats.gz","Cannabis Use","Substance abuse and Risky behaviour","0,05446421132","0,0475"
+"SUBJ01.sumstats.gz","Subjective Well-Being","Social",,
+"INCO02.sumstats.gz","Income","Social",,
+"INTE03.sumstats.gz","IQ","Social",,
+"EDUC01.sumstats.gz","Educational Attainment","Social",,
+"EDUC05.sumstats.gz","Educational Attainment (Non-Cog)","Social",,
+"EDUC06.sumstats.gz","Educational Attainment (Cog)","Social",,
+"INCO03.sumstats.gz","Social Deprivation","Social",,
+"BODY14.sumstats.gz","BMI","Somatic",,
+"CHRO01.sumstats.gz","Chronotype","Somatic",,
+"CHRO02.sumstats.gz","Sleep Duration","Somatic",,
+"TIRE01.sumstats.gz","Tiredness","Somatic",,
+"PHYS01.sumstats.gz","Physical Activity","Somatic",,
+"DIAB06.sumstats.gz","Diabetes type 2","Somatic","0,1675543943","0,105"
+"MIGR01.sumstats.gz","Migraine","Neurologic","0,1443703045","0,14"
+"NPAT12.sumstats.gz","ALS","Neurologic","0,1970149038","0,00442"
+"ALZH01.sumstats.gz","Alzheimer's Disease","Neurologic","0,3140209003","0,015"
+"PARK01.sumstats.gz","Parkinson's Disease","Neurologic","0,01956394449","0,003"
+"EPIL01.sumstats.gz","Epilepsy","Neurologic","0,2495050641","0,0075"
