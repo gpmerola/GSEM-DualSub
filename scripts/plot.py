@@ -2,6 +2,14 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from matplotlib import cm
 import numpy as np
+import os
+
+with open('dir.txt', 'r') as f:
+    working_directory = f.readline().strip()
+    manifest = f.readline().strip()
+    latent = f.readline().strip()
+
+os.chdir(working_directory)  # Change the working directory to the one read from the first line
 
 # Load the data
 data = pd.read_csv('trait_correlation_data.csv')
@@ -57,8 +65,8 @@ def plot_correlations_extended(data, horizontal=False):
     if horizontal:
         fig, ax = plt.subplots(figsize=(18, 12))  # Wider plot
         # Plot each correlation with vertical error bars
-        ax.errorbar(data.index, data['Correlation_Mania'], yerr=data['SE_Mania'], fmt='o', color='magenta', label='Correlation with Mania', capsize=5)
-        ax.errorbar(data.index, data['Correlation_BD'], yerr=data['SE_BD'], fmt='^', color='blue', label='Correlation with Bipolar Disorder', capsize=5)
+        ax.errorbar(data.index, data.iloc[:, 1], yerr=data.iloc[:, 3], fmt='o', color='magenta', label=f'Correlation with {latent}', capsize=5)
+        ax.errorbar(data.index, data.iloc[:, 2], yerr=data.iloc[:, 4], fmt='^', color='blue', label=f'Correlation with {manifest}', capsize=5)
 
         # Labels and title
         #ax.set_xlabel('Trait')
@@ -83,13 +91,13 @@ def plot_correlations_extended(data, horizontal=False):
     else:
         fig, ax = plt.subplots(figsize=(12, 18))  # Taller plot
         # Plot each correlation with horizontal error bars
-        ax.errorbar(data['Correlation_Mania'], data.index, xerr=data['SE_Mania'], fmt='o', color='magenta', label='Correlation with Mania', capsize=5)
-        ax.errorbar(data['Correlation_BD'], data.index, xerr=data['SE_BD'], fmt='^', color='blue', label='Correlation with Bipolar Disorder', capsize=5)
+        ax.errorbar(data.iloc[:, 1], data.index, xerr=data.iloc[:, 3], fmt='o', color='magenta', label=f'Correlation with {latent}', capsize=5)
+        ax.errorbar(data.iloc[:, 2], data.index, xerr=data.iloc[:, 4], fmt='^', color='blue', label=f'Correlation with {manifest}', capsize=5)
 
         # Labels and title
         ax.set_ylabel('Trait')
         ax.set_xlabel('Correlation')
-        ax.set_title('Correlations of Traits with Mania and Bipolar Disorder')
+        ax.set_title(f'Correlations of Traits with {latent} and {manifest}')
         ax.axvline(0, color='grey', linewidth=0.8)  # Add a vertical line at correlation=0 for reference
 
         ax.set_yticks(data.index)
@@ -118,7 +126,9 @@ def plot_correlations_extended(data, horizontal=False):
     plt.tight_layout()
     plt.savefig('trait_correlation_plot_with_clusters_background.png', format='png', bbox_inches='tight', dpi=300)
 
-    #plt.show()
+    plt.show()
 
 # Call the function with horizontal=True or False depending on desired orientation
 plot_correlations_extended(data, horizontal=True)
+
+print("Finished")
