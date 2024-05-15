@@ -31,7 +31,7 @@ wld <- ld
 #latentnames =c("Psychosis", "Depression", "Mania")
 #output_name <- "Mania_Supermunged"
 
-traitnames =c("MAN1", "MAN2", "MAINMAN")
+traitnames =c("MAN1", "MAN2", "BD") ### 3rd has to appear in the input csv
 latentnames =c("LAT1", "LAT2", "MAINLAT")
 output_name <- "SYNTHETIC_PHENOTYPE"
 
@@ -303,55 +303,48 @@ if("5" %in% args){
 }
 
 if("6" %in% args){
-  print("---------------------------------------------------------Part 6 Started - Matrix")
+ print("---------------------------------------------------------Part 6 Started - Matrix")
 
+# Function to add significance stars based on p-value
 add_significance <- function(p_value) {
-  if (p_value < 0.001) {
-    return("***")
-  } else if (p_value < 0.01) {
-    return("**")
-  } else if (p_value < 0.05) {
-    return("*")
-  } else {
-    return("")
-  }
+  if (p_value < 0.001) "***"
+  else if (p_value < 0.01) "**"
+  else if (p_value < 0.05) "*"
+  else ""
 }
 
-difftest.matrix <- function(mValues1, mStandard_errors1, mValues2, mStandard_errors2, mCorrelationEstimate.values = 0.95, effectiveNumberOfTests=NULL, mValueCovariances=NULL, symmetric = T, eigenSumLimit = 0.995) {
+# Function to perform differential test between two matrices
+difftest.matrix <- function(mValues1, mStandard_errors1, mValues2, mStandard_errors2, mCorrelationEstimate.values = 0.95, effectiveNumberOfTests = NULL, mValueCovariances = NULL, symmetric = TRUE, eigenSumLimit = 0.995) {
   
   mValues1 <- symMatrixConform(mValues1)
   mStandard_errors1 <- symMatrixConform(mStandard_errors1)
   mValues2 <- symMatrixConform(mValues2)
   mStandard_errors2 <- symMatrixConform(mStandard_errors2)
   
-  if(is.null(effectiveNumberOfTests) & !is.null(mValueCovariances)){
+  if (is.null(effectiveNumberOfTests) & !is.null(mValueCovariances)) {
     effectiveNumberOfTests <- getEffectiveNumberOfTests(covarianceMatrix = mValueCovariances, symmetric = symmetric, eigenSumLimit = eigenSumLimit)
   }
   
   mTest.values <- abs(mValues1 - mValues2)
   sde <- sqrt((mStandard_errors1^2) + (mStandard_errors2^2) - 2 * mCorrelationEstimate.values * mStandard_errors1 * mStandard_errors2)
-  pTest.values <- 2 * pnorm(q = mTest.values, sd = sde, lower.tail = F)
+  pTest.values <- 2 * pnorm(q = mTest.values, sd = sde, lower.tail = FALSE)
   pTest.values.adj <- matrix(data = p.adjust(pTest.values, method = "fdr", n = effectiveNumberOfTests), nrow = nrow(pTest.values), ncol = ncol(pTest.values))
   rownames(pTest.values.adj) <- rownames(pTest.values)
   colnames(pTest.values.adj) <- colnames(pTest.values)
   
-  return(list(pTest.values = pTest.values, pTest.values.adj = pTest.values.adj))
+  list(pTest.values = pTest.values, pTest.values.adj = pTest.values.adj)
 }
 
-trait_names <- c(corr$trait, latentnames[3])
-cluster <- c(corr$Cluster)
-
+# Read and prepare data
 mega_correlation <- readRDS("Correlation_output.rds")
-
-rownames(mega_correlation$S_Stand) <- trait_names
-colnames(mega_correlation$S_Stand) <- trait_names
+trait_names <- c(corr$trait, latentnames[3])
+original_order <- c(latentnames[3], corr$trait)
 
 S <- mega_correlation$S_Stand
+rownames(S) <- colnames(S) <- trait_names
 
 SE_R <- matrix(nrow = nrow(S), ncol = ncol(S))
-rownames(SE_R) <- trait_names
-colnames(SE_R) <- trait_names
-
+rownames(SE_R) <- colnames(SE_R) <- trait_names
 SE_R[lower.tri(SE_R, diag = TRUE)] <- sqrt(diag(mega_correlation$V_Stand))
 SE_R[upper.tri(SE_R, diag = TRUE)] <- t(SE_R)[upper.tri(SE_R, diag = TRUE)]
 
@@ -360,49 +353,57 @@ R_bd <- S[traitnames[3], ]
 seR_mania <- SE_R[latentnames[3], ]
 seR_bd <- SE_R[traitnames[3], ]
 
+# Perform differential test
 p_overall <- difftest.matrix(effectiveNumberOfTests = 35, mValues1 = as.matrix(R_mania), mStandard_errors1 = as.matrix(seR_mania), mValues2 = as.matrix(R_bd), mStandard_errors2 = as.matrix(seR_bd), mCorrelationEstimate.values = 0.897847609)
 
+# Adjust p-values
 p_adjusted <- p_overall$pTest.values.adj[!is.na(p_overall$pTest.values.adj)]
-paired_pval <- cbind(trait_names, p_adjusted)
+paired_pval <- data.frame(trait_names, p_adjusted = as.numeric(p_adjusted))
 
-R_mania <- data.frame(Trait = names(R_mania), Correlation = R_mania)
-R_bd <- data.frame(Trait = names(R_bd), Correlation = R_bd)
-seR_mania <- data.frame(Trait = names(seR_mania), Correlation = seR_mania)
-seR_bd <- data.frame(Trait = names(seR_bd), Correlation = seR_bd)
-
-dfs <- list(R_mania, R_bd, seR_mania, seR_bd)
+# Combine data into a single dataframe
+dfs <- list(
+  data.frame(Trait = names(R_mania), Correlation = R_mania),
+  data.frame(Trait = names(R_bd), Correlation = R_bd),
+  data.frame(Trait = names(seR_mania), SE = seR_mania),
+  data.frame(Trait = names(seR_bd), SE = seR_bd)
+)
 
 merged_df <- Reduce(function(x, y) merge(x, y, by = "Trait"), dfs)
-new_colnames <- c("Trait", paste0("Correlation_", latentnames[3]), 
-                    paste0("Correlation_", traitnames[3]), 
-                    paste0("SE_", latentnames[3]), 
-                    paste0("SE_", traitnames[3]))
-                    
-names(merged_df) <- new_colnames
-
-paired_pval[, "p_adjusted"] <- as.numeric(paired_pval[, "p_adjusted"])
-merged_df$p_adjusted <- paired_pval[match(merged_df$Trait, paired_pval[, "trait_names"]), "p_adjusted"]
-
-merged_df_with_pvalues <- merged_df
-
-
-merged_df$p_adjusted <- as.numeric(merged_df$p_adjusted)
+merged_df$p_adjusted <- paired_pval[match(merged_df$Trait, paired_pval$trait_names), "p_adjusted"]
 merged_df$significance <- sapply(merged_df$p_adjusted, add_significance)
 merged_df$label_sign <- paste(merged_df$Trait, merged_df$significance)
-merged_df <- merged_df[nrow(merged_df):1, ]
 
-merged_df <- merged_df[, -1]
+# Rename columns dynamically
+colnames(merged_df)[2] <- paste0("Correlation_", latentnames[3])
+colnames(merged_df)[3] <- paste0("Correlation_", traitnames[3])
+colnames(merged_df)[4] <- paste0("SE_", latentnames[3])
+colnames(merged_df)[5] <- paste0("SE_", traitnames[3])
+
+# Ensure the order of traits matches original_order
+merged_df <- merged_df[match(original_order, merged_df$Trait), ]
+
+# Final modifications and save to CSV
+#merged_df <- merged_df[, -1]
 colnames(merged_df)[ncol(merged_df)] <- "Trait"
-merged_df <- merged_df[, c(ncol(merged_df), 1:(ncol(merged_df)-1))]
-merged_df$p_adjusted <- NULL
-merged_df$significance <- NULL
+merged_df <- merged_df[, c(ncol(merged_df), 1:(ncol(merged_df) - 1))]
 merged_df <- merged_df[-1, ]
-
-print(merged_df_with_pvalues)
-
+merged_df <- merged_df[rev(1:nrow(merged_df)), ]
+cluster <- c(corr$Cluster)
 merged_df$Cluster <- rev(cluster)
 
+merged_df <- merged_df[, !grepl("Trait.1", colnames(merged_df))]
+print(merged_df)
 write.csv(merged_df, "trait_correlation_data.csv", row.names = FALSE) 
+
+lines <- readLines("../dir.txt")
+
+# Modify the second and third lines
+lines[2] <- traitnames[3]
+lines[3] <- latentnames[3]
+
+# Write the updated content back to the file
+writeLines(lines, "../dir.txt")
+
  print("---------------------------------------------------------Part 6 Finished - Matrix")
 }
 
