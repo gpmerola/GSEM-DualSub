@@ -2,7 +2,7 @@
 A package to perform double genomic subtraction through Genomic SEM.
 
 ## Setup
-This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python. Having at least 10 GB of RAM memory is recommended, although this depends on the size of the summary statistics input files.
+This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python. Having at least 8 GB of RAM memory is recommended, although this depends on the size of the summary statistics input files.
 
 First of all, download the Github package and navigate in the package directory:
 
