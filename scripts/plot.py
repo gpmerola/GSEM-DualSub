@@ -1,3 +1,5 @@
+# Tested with Python 3.11.6
+
 import matplotlib.pyplot as plt
 import pandas as pd
 import numpy as np
