@@ -1,8 +1,6 @@
 # GSEM Double Subtraction
 A package to perform double genomic subtraction through Genomic SEM.
 
-\\\\\\module load r/4.3.0-gcc-13.2.0-withx-rmath-standalone-python-3.11.6 SHOULD I WRITE R AND PYTHON VERSION USED?
-
 ## Setup
 This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python.
 
