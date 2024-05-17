@@ -63,4 +63,7 @@ Rscript main.R  "working_directory" 1 2 3 4 5 6 "r"
 python plot.py
 ```
 
+### Settings
+
+The settings can be BLABLALBA CONTINUE
 
