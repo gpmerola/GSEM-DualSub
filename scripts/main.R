@@ -1,3 +1,5 @@
+# Tested with R 4.3.0 
+
 files_input = c( #########################################################################
   "/scratch/prj/gwas_sumstats/cleaned/SCHI06.gz", 
   "/users/k2473476/proj/Recover/DEPR14_ori_modified.gz", 
