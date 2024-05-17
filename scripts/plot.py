@@ -1,8 +1,11 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from matplotlib import cm
 import numpy as np
 import os
+import matplotlib.colors as mcolors
+
+print("Starting Plotting")
+
 
 with open('dir.txt', 'r') as f:
     working_directory = f.readline().strip()
@@ -13,6 +16,8 @@ os.chdir(working_directory)  # Change the working directory to the one read from
 
 # Load the data
 data = pd.read_csv('trait_correlation_data.csv')
+data = data.iloc[::-1].reset_index(drop=True)
+data = data[data['Trait'] != latent].reset_index(drop=True)
 
 # Define a function to classify the clusters
 trait_to_cluster = dict(zip(data['Trait'], data['Cluster']))
@@ -26,15 +31,17 @@ data['Cluster'] = data['Trait'].apply(assign_cluster)
 
 data.to_csv('output.txt', index=False, sep='\t')
 
-
 # Predefined colors for the initial clusters
 initial_colors = [
-    '#ffcccb',  # Light red
-    '#add8e6',  # Light blue
-    '#90ee90',  # Light green
-    '#ffffe0',  # Light yellow
-    '#dda0dd'   # Light purple
+    'lightcoral',  # Light red equivalent
+    'blue',   # Light blue
+    'lightgreen',  # Light green
+    'lightyellow', # Light yellow
+    'plum'         # Light purple equivalent
 ]
+
+# Convert initial colors to RGBA
+initial_colors_rgba = [mcolors.to_rgba(color) for color in initial_colors]
 
 # Identify unique clusters and separate into known and remaining
 clusters_unique = data['Cluster'].unique()
@@ -42,21 +49,23 @@ num_initial = len(initial_colors)
 remaining_clusters = clusters_unique[num_initial:]
 
 # Assign initial colors to the first clusters
-cluster_colors = {cluster: color for cluster, color in zip(clusters_unique[:num_initial], initial_colors)}
+cluster_colors = {cluster: color for cluster, color in zip(clusters_unique[:num_initial], initial_colors_rgba)}
 
 # Generate dynamic colors for remaining clusters
 num_remaining = len(remaining_clusters)
-colormap = plt.colormaps['tab10'](num_remaining)
+dynamic_colors = plt.cm.tab10(np.linspace(0, 1, num_remaining))
 
 for i, cluster in enumerate(remaining_clusters):
-    cluster_colors[cluster] = colormap(i)
+    cluster_colors[cluster] = dynamic_colors[i]
 
 # Ensure 'Unknown' has a distinct color if not already assigned
 if 'Unknown' not in cluster_colors:
-    cluster_colors['Unknown'] = '#d3d3d3'  # Light gray
+    cluster_colors['Unknown'] = mcolors.to_rgba('grey')  # Light gray
 
 # Function to create a horizontally oriented plot with extended x-axis limits
 def plot_correlations_extended(data, horizontal=False):
+
+    data['Trait'] = data['label_sign']
 
     if horizontal:
         # Sort the DataFrame by Trait column in reverse order to flip horizontally
@@ -69,7 +78,6 @@ def plot_correlations_extended(data, horizontal=False):
         ax.errorbar(data.index, data.iloc[:, 2], yerr=data.iloc[:, 4], fmt='^', color='blue', label=f'Correlation with {manifest}', capsize=5)
 
         # Labels and title
-        #ax.set_xlabel('Trait')
         ax.set_ylabel('Correlation')
         ax.axhline(0, color='grey', linewidth=0.8)  # Add a horizontal line at correlation=0 for reference
 
@@ -83,7 +91,7 @@ def plot_correlations_extended(data, horizontal=False):
         for cluster, color in cluster_colors.items():
             indices = data[data['Cluster'] == cluster].index
             if len(indices) > 0:
-                ax.axvspan(indices[0] - 0.5, indices[-1] + 0.5, color=color, alpha=0.3)
+                ax.axvspan(indices[0] - 0.5, indices[-1] + 0.5, facecolor=color, alpha=0.3)
 
         # Adjust layout
         plt.subplots_adjust(bottom=0.25)
@@ -101,7 +109,7 @@ def plot_correlations_extended(data, horizontal=False):
         ax.axvline(0, color='grey', linewidth=0.8)  # Add a vertical line at correlation=0 for reference
 
         ax.set_yticks(data.index)
-        ax.set_yticklabels(ha='right')  # Align y-tick labels to the right
+        ax.set_yticklabels(data['Trait'], ha='right')  # Align y-tick labels to the right
 
         # Extend the x-axis limits to -1 to 1.1
         ax.set_xlim([-1, 1.1])
@@ -110,7 +118,7 @@ def plot_correlations_extended(data, horizontal=False):
         for cluster, color in cluster_colors.items():
             indices = data[data['Cluster'] == cluster].index
             if len(indices) > 0:
-                ax.axhspan(indices[0] - 0.5, indices[-1] + 0.5, color=color, alpha=0.3)
+                ax.axvspan(indices[0] - 0.5, indices[-1] + 0.5, facecolor=color, alpha=0.3)
 
         # Adjust layout
         plt.subplots_adjust(left=0.25)
@@ -131,4 +139,4 @@ def plot_correlations_extended(data, horizontal=False):
 # Call the function with horizontal=True or False depending on desired orientation
 plot_correlations_extended(data, horizontal=True)
 
-print("Finished")
+print("Finished Plotting")
