@@ -53,7 +53,7 @@ pip install -r requirements.txt
 The parts must be run in order, with "3" being the most computationally intensive step.
 
 
-  3) Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command:
+  3) Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command ("r" is optional):
 
 ```console
 cd scripts
