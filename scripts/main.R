@@ -1,37 +1,41 @@
 # Tested with R 4.3.0 
 
-files_input = c( #########################################################################
+files_input = c(
   "/scratch/prj/gwas_sumstats/cleaned/SCHI06.gz", 
   "/users/k2473476/proj/Recover/DEPR14_ori_modified.gz", 
-  "/scratch/prj/gwas_sumstats/cleaned/BIPO03.gz")
-ref_file = "~/proj/CommonFiles/reference.1000G.maf.0.005.txt.gz" ####################################################
-hm3 = "~/proj/CommonFiles/w_hm3.snplist"  ############################################################
-paths_corr <- "/scratch/prj/gwas_sumstats/munged/" ############################################################
-ld <- "~/proj/CommonFiles/eur_w_ld_chr/" ############################################################
-wld <- ld
+  "/scratch/prj/gwas_sumstats/cleaned/BIPO03.gz") # List of file paths to cleaned GWAS summary statistics files, 3 elements in the vector. The third one represents the phenotype from which the subtraction is conducted.
 
+ref_file = "~/proj/CommonFiles/reference.1000G.maf.0.005.txt.gz" # File path to the reference panel.
 
-#traitnames =c("SCZ", "MDD", "BD")
-#latentnames =c("Psychosis", "Depression", "Mania")
-#output_name <- "Mania_Supermunged"
+hm3 = "~/proj/CommonFiles/w_hm3.snplist"  # File path to the HapMap 3 SNP list.
 
-traitnames =c("MAN1", "MAN2", "BD") ### 3rd has to appear in the input csv
-latentnames =c("LAT1", "LAT2", "MAINLAT")
-output_name <- "SYNTHETIC_PHENOTYPE"
+paths_corr <- "/scratch/prj/gwas_sumstats/munged/" # Directory path for the files for the correlation (see the "Correlation_input.csv" file, and the section below).
 
+ld <- "~/proj/CommonFiles/eur_w_ld_chr/" # Directory path to the linkage disequilibrium (LD) reference data.
 
-infofilter = 0.9
-maffilter = 0.05
+wld <- ld # Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
 
-sample.prev <- c(0.425, 0.346, 0.1013) ############################################################
-population.prev <- c(0.01, 0.10, 0.02) ############################################################
+traitnames =c("MAN1", "MAN2", "BD") # Names of traits for analysis, 3 elements in the vector. Has to follow the same order as "files_input". Make sure that the third file in "traitnames" correspond to the first element in the "trait" column in "Correlation_input.csv").
 
-se.logit_vector = c(FALSE, FALSE, FALSE) ############################################################
-OLS_vector=c(TRUE, TRUE, TRUE) ############################################################
-linprob_vector= c(FALSE, FALSE, FALSE) ############################################################
-ncores = 32 ############################################################
+latentnames =c("LAT1", "LAT2", "MAINLAT") # Names of latent variables corresponding to the traits, 3 elements in the vector. Has to follow the same order as "files_input".
 
+output_name <- "SYNTHETIC_PHENOTYPE" # Name of the output for the synthetic phenotype file.
 
+infofilter = 0.9 # Information score filter threshold.
+
+maffilter = 0.05 # Minor allele frequency filter threshold.
+
+sample.prev <- c(0.425, 0.346, 0.1013) # Vector of sample prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
+
+population.prev <- c(0.01, 0.10, 0.02) # Vector of population prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
+
+se.logit_vector = c(FALSE, FALSE, FALSE) # Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+
+OLS_vector=c(TRUE, TRUE, TRUE) # Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+
+linprob_vector= c(FALSE, FALSE, FALSE) # Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+
+ncores = 32 # Number of CPU cores to use for computation.
 
 
 print("---------------------------------------------------------CodeStart - SubGwas")
