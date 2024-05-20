@@ -67,5 +67,23 @@ python plot.py
 
 The settings can be 
 
-CONTINUE
+```r
+files_input: List of file paths to cleaned GWAS summary statistics files.
+ref_file: File path to the reference allele frequency file (1000 Genomes, MAF > 0.005).
+hm3: File path to the HapMap 3 SNP list.
+paths_corr: Directory path for munged summary statistics.
+ld: Directory path to the linkage disequilibrium (LD) reference data.
+wld: Directory path to the LD scores files.
+traitnames: Names of traits for analysis.
+latentnames: Names of latent variables corresponding to the traits.
+output_name: Name of the output synthetic phenotype file.
+infofilter: Information score filter threshold.
+maffilter: Minor allele frequency filter threshold.
+sample.prev: Vector of sample prevalence for each trait.
+population.prev: Vector of population prevalence for each trait.
+se.logit_vector: Logical vector indicating if standard error of logit transformation should be used.
+OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used.
+linprob_vector: Logical vector indicating if linear probability model should be used.
+ncores: Number of CPU cores to use for computation.
+```
 
