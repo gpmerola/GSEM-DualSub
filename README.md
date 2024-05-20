@@ -65,5 +65,7 @@ python plot.py
 
 ### Settings
 
-The settings can be BLABLALBA CONTINUE
+The settings can be 
+
+CONTINUE
 
