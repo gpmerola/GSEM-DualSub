@@ -65,16 +65,16 @@ python plot.py
 
 ### Settings
 
-The settings can be 
+These variables are located at the top of the main.R file and can be edited to modify them:
 
 ```r
       1: files_input: List of file paths to cleaned GWAS summary statistics files. The third one represents the phenotype from which the subtraction is conducted.
 
-      2: ref_file: File path to the reference allele frequency file (1000 Genomes).!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      2: ref_file: File path to the reference panel.
 
       3: hm3: File path to the HapMap 3 SNP list.
 
-      4: paths_corr: Directory path for munged summary statistics.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      4: paths_corr: Directory path for the files for the correlation (see the "Correlation_input.csv" file, and the section below).
 
       5: ld: Directory path to the linkage disequilibrium (LD) reference data.
 
