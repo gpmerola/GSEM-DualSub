@@ -8,7 +8,6 @@ import matplotlib.colors as mcolors
 
 print("Starting Plotting")
 
-
 with open('dir.txt', 'r') as f:
     working_directory = f.readline().strip()
     manifest = f.readline().strip()
