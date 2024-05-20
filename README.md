@@ -68,7 +68,7 @@ python plot.py
 These variables are located at the top of the main.R file and can be edited to modify them:
 
 ```
-      1: files_input: List of file paths to cleaned GWAS summary statistics files. The third one represents the phenotype from which the subtraction is conducted.
+      1: files_input: List of file paths to cleaned GWAS summary statistics files, 3 elements in the vecto. The third one represents the phenotype from which the subtraction is conducted.
 
       2: ref_file: File path to the reference panel.
 
@@ -80,9 +80,9 @@ These variables are located at the top of the main.R file and can be edited to m
 
       6: wld: Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
 
-      7: traitnames: Names of traits for analysis. Has to follow the same order as "files_input".
+      7: traitnames: Names of traits for analysis, 3 elements in the vector. Has to follow the same order as "files_input". Make sure that the third file in "traitnames" correspond to the first element in the "trait" column in "Correlation_input.csv"). 
 
-      8: latentnames: Names of latent variables corresponding to the traits.  Has to follow the same order as "files_input".
+      8: latentnames: Names of latent variables corresponding to the traits, 3 elements in the vecto.  Has to follow the same order as "files_input".
 
       9: output_name: Name of the output for the synthetic phenotype file.
 
