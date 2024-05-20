@@ -68,22 +68,38 @@ python plot.py
 The settings can be 
 
 ```r
-files_input: List of file paths to cleaned GWAS summary statistics files.
-ref_file: File path to the reference allele frequency file (1000 Genomes, MAF > 0.005).
-hm3: File path to the HapMap 3 SNP list.
-paths_corr: Directory path for munged summary statistics.
-ld: Directory path to the linkage disequilibrium (LD) reference data.
-wld: Directory path to the LD scores files.
-traitnames: Names of traits for analysis.
-latentnames: Names of latent variables corresponding to the traits.
-output_name: Name of the output synthetic phenotype file.
-infofilter: Information score filter threshold.
-maffilter: Minor allele frequency filter threshold.
-sample.prev: Vector of sample prevalence for each trait.
-population.prev: Vector of population prevalence for each trait.
-se.logit_vector: Logical vector indicating if standard error of logit transformation should be used.
-OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used.
-linprob_vector: Logical vector indicating if linear probability model should be used.
-ncores: Number of CPU cores to use for computation.
+      1: files_input: List of file paths to cleaned GWAS summary statistics files. The third one represents the phenotype from which the subtraction is conducted.
+
+      2: ref_file: File path to the reference allele frequency file (1000 Genomes).!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      3: hm3: File path to the HapMap 3 SNP list.
+
+      4: paths_corr: Directory path for munged summary statistics.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+      5: ld: Directory path to the linkage disequilibrium (LD) reference data.
+
+      6: wld: Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
+
+      7: traitnames: Names of traits for analysis. Has to follow the same order as "files_input".
+
+      8: latentnames: Names of latent variables corresponding to the traits.  Has to follow the same order as "files_input".
+
+      9: output_name: Name of the output for the synthetic phenotype file.
+
+      10: infofilter: Information score filter threshold.
+
+      11: maffilter: Minor allele frequency filter threshold.
+
+      12: sample.prev: Vector of sample prevalence for each trait.  Has to follow the same order as "files_input".
+
+      13: population.prev: Vector of population prevalence for each trait.  Has to follow the same order as "files_input".
+
+      14: se.logit_vector: Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+
+      15: OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+
+      16: linprob_vector: Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+
+      17: ncores: Number of CPU cores to use for computation.
 ```
 
