@@ -67,7 +67,7 @@ python plot.py
 
 These variables are located at the top of the main.R file and can be edited to modify them:
 
-```r
+```
       1: files_input: List of file paths to cleaned GWAS summary statistics files. The third one represents the phenotype from which the subtraction is conducted.
 
       2: ref_file: File path to the reference panel.
