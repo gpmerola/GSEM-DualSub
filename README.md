@@ -68,7 +68,7 @@ python plot.py
 These variables are located at the top of the main.R file and can be edited to modify them:
 
 ```
-      1: files_input: List of file paths to cleaned GWAS summary statistics files, 3 elements in the vecto. The third one represents the phenotype from which the subtraction is conducted.
+      1: files_input: List of file paths to cleaned GWAS summary statistics files, 3 elements in the vector. The third one represents the phenotype from which the subtraction is conducted.
 
       2: ref_file: File path to the reference panel.
 
@@ -82,7 +82,7 @@ These variables are located at the top of the main.R file and can be edited to m
 
       7: traitnames: Names of traits for analysis, 3 elements in the vector. Has to follow the same order as "files_input". Make sure that the third file in "traitnames" correspond to the first element in the "trait" column in "Correlation_input.csv"). 
 
-      8: latentnames: Names of latent variables corresponding to the traits, 3 elements in the vecto.  Has to follow the same order as "files_input".
+      8: latentnames: Names of latent variables corresponding to the traits, 3 elements in the vector. Has to follow the same order as "files_input".
 
       9: output_name: Name of the output for the synthetic phenotype file.
 
@@ -90,15 +90,15 @@ These variables are located at the top of the main.R file and can be edited to m
 
       11: maffilter: Minor allele frequency filter threshold.
 
-      12: sample.prev: Vector of sample prevalence for each trait.  Has to follow the same order as "files_input".
+      12: sample.prev: Vector of sample prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
 
-      13: population.prev: Vector of population prevalence for each trait.  Has to follow the same order as "files_input".
+      13: population.prev: Vector of population prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
 
-      14: se.logit_vector: Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+      14: se.logit_vector: Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
-      15: OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+      15: OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
-      16: linprob_vector: Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference).  Has to follow the same order as "files_input".
+      16: linprob_vector: Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
       17: ncores: Number of CPU cores to use for computation.
 ```
