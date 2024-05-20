@@ -103,3 +103,41 @@ These variables are located at the top of the main.R file and can be edited to m
       17: ncores: Number of CPU cores to use for computation.
 ```
 
+Additionally, the Correlation_input.csv file contains important information necessary for the genetic correlation analysis. Each column in the file is used to define specific parameters for the traits being analyzed.
+
+```csv
+trait: This column lists the names of the traits being analyzed. Each row corresponds to a different trait.
+
+code: This column provides unique codes associated with each trait, used for file path construction.
+
+sampleprev: This column specifies the sample prevalence for each trait. The values should be provided in numeric format and represent the proportion of samples exhibiting the trait within the study population.
+
+popprev: This column specifies the population prevalence for each trait. The values should be provided in numeric format and represent the proportion of the general population exhibiting the trait.
+
+Cluster: This column lists the cluster information for each trait, used to group traits into clusters based on their genetic correlation patterns.
+```
+
+An example of the Correlation_input.csv file might look like this:
+
+```csv
+Copia codice
+trait,code,sampleprev,popprev,Cluster
+SCZ,SCHI06,0.425,0.01,A
+MDD,DEPR14,0.346,0.10,B
+BD,BIPO03,0.1013,0.02,C
+trait: The name of the trait (e.g., SCZ, MDD, BD).
+code: A unique identifier or code for each trait (e.g., SCHI06, DEPR14, BIPO03).
+sampleprev: The sample prevalence (e.g., 0.425, 0.346, 0.1013).
+popprev: The population prevalence (e.g., 0.01, 0.10, 0.02).
+Cluster: Cluster grouping for each trait (e.g., A, B, C).
+```
+
+Ensure that the data in Correlation_input.csv matches the order and values required for the analysis in the script. The file should be correctly formatted and saved in the appropriate directory for the script to access and utilize the data effectively.
+
+
+
+
+
+
+
+
