@@ -99,19 +99,17 @@ def plot_correlations_extended(data, horizontal=False):
         plt.subplots_adjust(bottom=0.25)
 
     else:
-        fig, ax = plt.subplots(figsize=(12, 18))  # Taller plot
+        fig, ax = plt.subplots(figsize=(8, 12))  # Taller plot
         # Plot each correlation with horizontal error bars
         ax.errorbar(data.iloc[:, 1], data.index, xerr=data.iloc[:, 3], fmt='o', color='magenta', label=f'Correlation with {latent}', capsize=5)
         ax.errorbar(data.iloc[:, 2], data.index, xerr=data.iloc[:, 4], fmt='^', color='blue', label=f'Correlation with {manifest}', capsize=5)
 
         # Labels and title
-        ax.set_ylabel('Trait')
         ax.set_xlabel('Correlation')
-        ax.set_title(f'Correlations of Traits with {latent} and {manifest}')
         ax.axvline(0, color='grey', linewidth=0.8)  # Add a vertical line at correlation=0 for reference
 
         ax.set_yticks(data.index)
-        ax.set_yticklabels(data['Trait'], ha='right')  # Align y-tick labels to the right
+        ax.set_yticklabels(data['Trait'], ha='right', size = 12)  # Align y-tick labels to the right
 
         # Extend the x-axis limits to -1 to 1.1
         ax.set_xlim([-1, 1.1])
@@ -120,7 +118,7 @@ def plot_correlations_extended(data, horizontal=False):
         for cluster, color in cluster_colors.items():
             indices = data[data['Cluster'] == cluster].index
             if len(indices) > 0:
-                ax.axvspan(indices[0] - 0.5, indices[-1] + 0.5, facecolor=color, alpha=0.3)
+                ax.axhspan(indices[0] - 0.5, indices[-1] + 0.5, facecolor=color, alpha=0.3)
 
         # Adjust layout
         plt.subplots_adjust(left=0.25)
@@ -129,8 +127,8 @@ def plot_correlations_extended(data, horizontal=False):
     if horizontal:
         ax.legend(loc='upper left', bbox_to_anchor=(0.07, 0.1), borderaxespad=0, frameon=True)
 
-    if horizontal == False:
-        ax.legend(loc='upper left', bbox_to_anchor=(0.07, 0.9), borderaxespad=0, frameon=True)
+    if not horizontal:
+        ax.legend(loc='upper left', bbox_to_anchor=(0.01, 0.975), borderaxespad=0, frameon=True)
 
     # Improve layout to prevent cutting off labels
     plt.tight_layout()
@@ -139,6 +137,6 @@ def plot_correlations_extended(data, horizontal=False):
     plt.show()
 
 # Call the function with horizontal=True or False depending on desired orientation
-plot_correlations_extended(data, horizontal=True)
+plot_correlations_extended(data, horizontal=False)
 
 print("Finished Plotting")
