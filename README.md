@@ -1,6 +1,16 @@
 # GSEM Double Subtraction
 A package to perform double genomic subtraction through Genomic SEM.
 
+## Overview of scripts
+
+```
+  1) main.R: main script, with a customizable part at the beginning to set up variables and inputs.
+
+  2) plot.py: optional part of the code, to be executed after main.R, to plot the correlation graph.
+
+  3) Correlation_input.csv: input file (with available template) for the genetic correlation matrix.
+```
+
 ## Setup
 This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python. Having at least 8 GB of RAM memory is recommended, although this depends on the size of the summary statistics input files.
 
@@ -14,7 +24,6 @@ cd GSEM-DoubleSub
 Then, install the R and Python dependecies.
 
 ### R Dependencies
-
 To install the required R packages, run the following command:
 
 ```console
@@ -29,7 +38,6 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-
   1) Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
 
   2) Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
@@ -64,7 +72,6 @@ python plot.py
 ```
 
 ### Settings
-
 These variables are located at the top of the main.R file and can be edited to modify them:
 
 ```
