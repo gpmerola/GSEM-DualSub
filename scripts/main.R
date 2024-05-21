@@ -363,7 +363,6 @@ output <- userGWAS(
   toler = 1e-40,
   GC="standard"
 )
-saveRDS(output, "output.rds")
 
 data.table::fwrite(x = output[[3]],file = paste0(latentnames[3], "_gwas.gz"), append = F,quote = F,sep = "\t",col.names = T,nThread=20)
 
