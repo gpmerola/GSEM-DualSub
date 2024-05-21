@@ -1,5 +1,5 @@
 # GSEM Dual Subtraction
-A package to perform dual genomic subtraction through Genomic SEM.
+A package to perform dual genomic subtraction on sumstats through Genomic SEM (https://github.com/GenomicSEM/GenomicSEM).
 
 ## Overview of scripts
   1) main.R: main script, with a customizable part at the beginning to set up variables and inputs.
