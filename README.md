@@ -1,5 +1,5 @@
-# GSEM Double Subtraction
-A package to perform double genomic subtraction through Genomic SEM.
+# GSEM Dual Subtraction
+A package to perform dual genomic subtraction through Genomic SEM.
 
 ## Overview of scripts
 
@@ -17,8 +17,8 @@ This README file provides instructions on how to set up the project environment 
 First of all, download the Github package and navigate in the package directory:
 
 ```console
-git clone https://github.com/gpmerola/GSEM-DoubleSub.git
-cd GSEM-DoubleSub
+git clone https://github.com/gpmerola/GSEM-DualSub.git
+cd GSEM-DualSub
 ```
 
 Then, install the R and Python dependecies.
