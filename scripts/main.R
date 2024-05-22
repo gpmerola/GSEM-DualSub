@@ -88,9 +88,7 @@ get_script_directory <- function() {
   return(NA)
 }
 
-# Get and print the script directory
 script_directory <- get_script_directory()
-cat(script_directory, "\n")
 
 setwd(script_directory)
 
@@ -101,31 +99,20 @@ if (!dir.exists(new_dir_path)) {
   dir.create(new_dir_path)
 }
 setwd(new_dir_path)
-print(new_dir_path)
 
+corr <- read.csv("../Correlation_input.csv")
+corr$sampleprev <- as.character(corr$sampleprev)
+corr$popprev <- as.character(corr$popprev)
+corr$sampleprev <- gsub(",", ".", corr$sampleprev)
+corr$popprev <- gsub(",", ".", corr$popprev)
+corr$sampleprev <- as.numeric(corr$sampleprev)
+corr$popprev <- as.numeric(corr$popprev)
 
+output_name_gz <-paste0(output_name, ".gz")
 
- corr <- read.csv("../Correlation_input.csv")
- corr$sampleprev <- as.character(corr$sampleprev)
- corr$popprev <- as.character(corr$popprev)
-
- # Replacing "," with "." in the columns
- corr$sampleprev <- gsub(",", ".", corr$sampleprev)
- corr$popprev <- gsub(",", ".", corr$popprev)
-
- # Converting the columns back to numeric
- corr$sampleprev <- as.numeric(corr$sampleprev)
- corr$popprev <- as.numeric(corr$popprev)
-
-
-
- output_name_gz <-paste0(output_name, ".gz")
-
- corr_input <- paste0(paths_corr, corr$code)
- corr_input <- c(corr_input)
- corr_input <- c(corr_input, output_name_gz)
-
-
+corr_input <- paste0(paths_corr, corr$code)
+corr_input <- c(corr_input)
+corr_input <- c(corr_input, output_name_gz)
 
 print("---------------------------------------------------------PreprocessingFinished - SubGwas")
 
@@ -439,20 +426,20 @@ difftest.matrix <- function(mValues1, mStandard_errors1, mValues2, mStandard_err
   list(pTest.values = pTest.values, pTest.values.adj = pTest.values.adj)
 }
 
-mega_correlation <- readRDS("Correlation_output.rds")
+df_correlation <- readRDS("Correlation_output.rds")
 
 # Set up the trait names
 trait_names <- c(corr$trait, latentnames[3])
 original_order <- c(latentnames[3], corr$trait)
 
 # Prepare the S matrix
-S <- mega_correlation$S_Stand
+S <- df_correlation$S_Stand
 rownames(S) <- colnames(S) <- trait_names
 
 # Prepare the SE_R matrix
 SE_R <- matrix(nrow = nrow(S), ncol = ncol(S))
 rownames(SE_R) <- colnames(SE_R) <- trait_names
-SE_R[lower.tri(SE_R, diag = TRUE)] <- sqrt(diag(mega_correlation$V_Stand))
+SE_R[lower.tri(SE_R, diag = TRUE)] <- sqrt(diag(df_correlation$V_Stand))
 SE_R[upper.tri(SE_R, diag = TRUE)] <- t(SE_R)[upper.tri(SE_R, diag = TRUE)]
 
 # Extract relevant correlations and standard errors
@@ -481,7 +468,7 @@ merged_df$p_adjusted <- paired_pval[match(merged_df$Trait, paired_pval$trait_nam
 merged_df$significance <- sapply(merged_df$p_adjusted, add_significance)
 merged_df$label_sign <- paste(merged_df$Trait, merged_df$significance)
 
-# Rename columns dynamically
+# Rename columns
 colnames(merged_df)[2] <- paste0("Correlation_", latentnames[3])
 colnames(merged_df)[3] <- paste0("Correlation_", traitnames[3])
 colnames(merged_df)[4] <- paste0("SE_", latentnames[3])
@@ -490,14 +477,9 @@ colnames(merged_df)[5] <- paste0("SE_", traitnames[3])
 # Ensure the order of traits matches original_order
 merged_df <- merged_df[match(original_order, merged_df$Trait), ]
 
-# Final modifications and save to CSV
-# Remove Trait.1 column if it exists
 merged_df <- merged_df[, !grepl("Trait.1", colnames(merged_df))]
-
-# Cluster information
 cluster <- c(corr$Cluster)
 merged_df$Cluster <- cluster[match(merged_df$Trait, trait_names)]
-
 print(merged_df)
 write.csv(merged_df, "trait_correlation_data.csv", row.names = FALSE)
 
