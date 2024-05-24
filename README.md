@@ -18,9 +18,7 @@ git clone https://github.com/gpmerola/GSEM-DualSub.git
 cd GSEM-DualSub
 ```
 
-Then, install the R and Python dependecies.
-
-To install the required R packages, run the following command:
+Then, install the R and Python dependecies. To install the required R packages, run the following command:
 
 ```console
 Rscript requirements.R
