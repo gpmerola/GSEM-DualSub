@@ -20,14 +20,12 @@ cd GSEM-DualSub
 
 Then, install the R and Python dependecies.
 
-### R Dependencies
 To install the required R packages, run the following command:
 
 ```console
 Rscript requirements.R
 ```
 
-### Python Dependencies
 To install the required Python packages, run the following command:
 
 ```console
