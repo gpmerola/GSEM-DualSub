@@ -45,7 +45,7 @@ pip install -r requirements.txt
       
       5: Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
       
-      6: Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.```
+      6: Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
 
 The parts must be run in order, with "3" being the most computationally intensive step.
 
