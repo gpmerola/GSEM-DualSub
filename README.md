@@ -2,11 +2,18 @@
 A package to perform dual genomic subtraction on sumstats through Genomic SEM (https://github.com/GenomicSEM/GenomicSEM).
 
 ## Overview of scripts
-  1) main.R: main script, with a customizable part at the beginning to set up variables and inputs.
+  - main.R: main script, with a customizable part at the beginning to set up variables and inputs.
 
-  2) plot.py: optional part of the code, to be executed after main.R, to plot the correlation graph.
+  - plot.py: optional part of the code, to be executed after main.R, to plot the correlation graph.
 
-  3) Correlation_input.csv: input file (with available template) for the genetic correlation matrix.
+  - Correlation_input.csv: input file (with available template) for the genetic correlation matrix.
+
+## Prerequisites
+  - R 3.6 or higher
+  
+  - Python 3.6 or higher
+
+  - Git
 
 ## Setup
 This README file provides instructions on how to set up the project environment by installing the required dependencies for both R and Python. Having at least 8 GB of RAM memory is recommended, although this depends on the size of the summary statistics input files.
@@ -35,17 +42,17 @@ pip install -r requirements.txt
 
   2) Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
 
-      1: Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
+      - Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
       
-      2: Model Fitting - Fits the specified structural equation model using the input data.
+      - Model Fitting - Fits the specified structural equation model using the input data.
       
-      3: GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
+      - GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
       
-      4: Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
+      - Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
       
-      5: Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
+      - Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
       
-      6: Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
+      - Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
 
 The parts must be run in order, with "3" being the most computationally intensive step.
 
@@ -65,39 +72,39 @@ python plot.py
 ### Settings
 These variables are located at the top of the main.R file and can be edited to modify them:
 
-      1: files_input: List of file paths to cleaned GWAS summary statistics files, 3 elements in the vector. The third one represents the phenotype from which the subtraction is conducted.
+  - files_input: List of file paths to cleaned GWAS summary statistics files, 3 elements in the vector. The third one represents the phenotype from which the subtraction is conducted.
 
-      2: ref_file: File path to the reference panel.
+  - ref_file: File path to the reference panel.
 
-      3: hm3: File path to the HapMap 3 SNP list.
+  - hm3: File path to the HapMap 3 SNP list.
 
-      4: paths_corr: Directory path for the files for the correlation (see the "Correlation_input.csv" file, and the section below).
+  - paths_corr: Directory path for the files for the correlation (see the "Correlation_input.csv" file, and the section below).
 
-      5: ld: Directory path to the linkage disequilibrium (LD) reference data.
+  - ld: Directory path to the linkage disequilibrium (LD) reference data.
 
-      6: wld: Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
+  - wld: Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
 
-      7: traitnames: Names of traits for analysis, 3 elements in the vector. Has to follow the same order as "files_input". Make sure that the third file in "traitnames" correspond to the first element in the "trait" column in "Correlation_input.csv"). 
+  - traitnames: Names of traits for analysis, 3 elements in the vector. Has to follow the same order as "files_input". Make sure that the third file in "traitnames" correspond to the first element in the "trait" column in "Correlation_input.csv"). 
 
-      8: latentnames: Names of latent variables corresponding to the traits, 3 elements in the vector. Has to follow the same order as "files_input".
+  - latentnames: Names of latent variables corresponding to the traits, 3 elements in the vector. Has to follow the same order as "files_input".
 
-      9: output_name: Name of the output for the synthetic phenotype file.
+  - output_name: Name of the output for the synthetic phenotype file.
 
-      10: infofilter: Information score filter threshold.
+  - infofilter: Information score filter threshold.
 
-      11: maffilter: Minor allele frequency filter threshold.
+  - maffilter: Minor allele frequency filter threshold.
 
-      12: sample.prev: Vector of sample prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
+  - sample.prev: Vector of sample prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
 
-      13: population.prev: Vector of population prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
+  - population.prev: Vector of population prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
 
-      14: se.logit_vector: Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+  - se.logit_vector: Logical vector indicating if standard error of logit transformation should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
-      15: OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+  - OLS_vector: Logical vector indicating if Ordinary Least Squares (OLS) regression should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
-      16: linprob_vector: Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
+  - linprob_vector: Logical vector indicating if linear probability model should be used (https://github.com/GenomicSEM/GenomicSEM/wiki/2.-Important-resources-and-key-information for reference), 3 elements in the vector. Has to follow the same order as "files_input".
 
-      17: ncores: Number of CPU cores to use for computation.
+  - ncores: Number of CPU cores to use for computation.
 
 Additionally, the Correlation_input.csv file contains important information necessary for the genetic correlation analysis. Each column in the file is used to define specific parameters for the traits being analyzed. An example of the Correlation_input.csv file might look like this:
 
@@ -123,27 +130,36 @@ Ensure that the data in Correlation_input.csv matches the order wanted in the fi
 ## Output
 The following output files are generated by the script during the analysis workflow. Each file serves a specific purpose in the overall analysis process, from preprocessing and modeling to visualization and correlation analysis. These files are saved in the new working directory created and set at the beginning of the script, provided through the console command.
 
-  1) "dir.txt": Contains the working directory name. It helps share the information between the .R and the .py script.
+  - dir.txt: Contains the working directory name. It helps share the information between the .R and the .py script.
 
-  2) "LDSC_main.rds": Contains the LDSC output data.
+  - LDSC_main.rds: Contains the LDSC output data.
 
-  3) "SNP_files.rds": Contains the sumstats for the SNPs, harmonized.
+  - SNP_files.rds: Contains the sumstats for the SNPs, harmonized.
 
-  4) "model_LD.csv": Contains the factor loadings, SEs and p-values from the GSEM model.
+  - model_LD.csv: Contains the factor loadings, SEs and p-values from the GSEM model.
 
-  5) "SEMplot.png": The GSEM plot saved as a PNG image.
+  - SEMplot.png: The GSEM plot saved as a PNG image.
 
-  6) "outputMANN.png": The Manhattan plot saved as a PNG image.
+  - outputMANN.png: The Manhattan plot saved as a PNG image.
 
-  7) "outputQQ.png": The QQ plot saved as a PNG image.
+  - outputQQ.png: The QQ plot saved as a PNG image.
 
-  8) "[latentname3]_gwas.gz": The GSEM results file for the synthetic phenotype.
+  - [latentname3]_gwas.gz: The GSEM results file for the synthetic phenotype.
 
-  9) "trait_correlation_data.csv": Contains the trait correlation data. It helps share the information between the .R and the .py script.
+  - trait_correlation_data.csv: Contains the trait correlation data. It helps share the information between the .R and the .py script.
 
-  10) "Correlation_output.rds": Contains the correlation output data. It helps share the information between the .R and the .py script.
+  - Correlation_output.rds: Contains the correlation output data. It helps share the information between the .R and the .py script.
 
-  11) "trait_correlation_plot_with_clusters_background.png": PNG image of the correlation plot with cluster backgrounds.
+  - trait_correlation_plot_with_clusters_background.png: PNG image of the correlation plot with cluster backgrounds.
+
+## Troubleshooting
+  - Memory Issues: Ensure that you have sufficient RAM available. Try running the scripts on a machine with more memory if you encounter memory errors.
+    
+  - Dependency Issues: Verify that all dependencies are correctly installed by checking their versions and reinstalling if necessary.
+    
+  - File Paths: Double-check all file paths provided in the settings to ensure they are correct.
+    
+  - Permissions: Ensure you have read and write permissions for all directories and files used by the scripts.
 
 ## License
 This project is licensed under the MIT License. See the LICENSE file for details.
