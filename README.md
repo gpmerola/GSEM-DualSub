@@ -42,17 +42,17 @@ pip install -r requirements.txt
 
   2) Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
 
-      - Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
+  - Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
       
-      - Model Fitting - Fits the specified structural equation model using the input data.
+  - Model Fitting - Fits the specified structural equation model using the input data.
       
-      - GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
+  - GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
       
-      - Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
+  - Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
       
-      - Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
+  - Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
       
-      - Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
+  - Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
 
 The parts must be run in order, with "3" being the most computationally intensive step.
 
