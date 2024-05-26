@@ -1,5 +1,14 @@
 # GSEM Dual Subtraction
-A package to perform dual genomic subtraction on sumstats through [Genomic SEM](https://github.com/GenomicSEM/GenomicSEM).
+A package to perform dual genomic subtraction on sumstats through [Genomic SEM](https://github.com/GenomicSEM/GenomicSEM). This tool facilitates the analysis of genetic correlations and the execution of synthetic GWAS on latent variables, aiding in the understanding of complex trait genetics.
+
+Key features:
+
+  - Automated preprocessing of GWAS summary statistics.
+    
+  - Efficient model fitting and synthetic GWAS execution.
+    
+  - Comprehensive output files, including plots and summary statistics.
+
 
 ## Overview of scripts
   - main.R: main script, with a customizable part at the beginning to set up variables and inputs.
@@ -38,32 +47,32 @@ pip install -r requirements.txt
 ```
 
 ## Usage
-  1) Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
+  - Prepare Input Files: Ensure your input files are in the correct format and located in the appropriate directory.
 
-  2) Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
+  - Choose Input Settings: The first argument contains the name of the directory you want your output files to be stored in. Add numbers from "1" to "6", or "r", to the input as shown below to run specific parts of the code:
 
-  - Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
+    - Preprocessing and Preparation - Performs munging, LD score regression, and prepares SNP files.
       
-  - Model Fitting - Fits the specified structural equation model using the input data.
+    - Model Fitting - Fits the specified structural equation model using the input data.
       
-  - GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
+    - GSEM - Performs the most computationally intensive step, running a synthethic GWAS on the latent variables specified in the model. Including "r" runs the GWAS in a test mode, using only chromosome 2.
       
-  - Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
+    - Plots and Post-Munging - Generates Manhattan and QQ plots, performs post-munging, and computes LD score regression for the new phenotype.
       
-  - Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
+    - Genetic Correlation - Computes genetic correlation between the new phenotype and the input traits.
       
-  - Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
+    - Matrix Generation - Generates a matrix of genetic correlations and performs significance testing between the new phenotype and input traits.
 
 The parts must be run in order, with "3" being the most computationally intensive step.
 
-  3) Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command ("r" is optional):
+  - Run the Script: Execute the main script to perform the subtraction by navigating to the scripts directory and running the following command ("r" is optional):
 
 ```console
 cd scripts
 Rscript main.R  "working_directory" 1 2 3 4 5 6 "r"
 ```
 
-  4) Plotting: If needed, the plotting script for genetic correlation can be run:
+  - Plotting: If needed, the plotting script for genetic correlation can be run:
 
 ```console
 python plot.py
@@ -115,15 +124,15 @@ MDD,DEPR14,0.346,0.10,B
 BD,BIPO03,0.1013,0.02,C
 ```
 
-  1) trait: The name of the trait.
+  - trait: The name of the trait.
 
-  2) code: A unique identifier or code for each trait used, for file path construction (see "paths_corr" in the section above).
+  - code: A unique identifier or code for each trait used, for file path construction (see "paths_corr" in the section above).
 
-  3) sampleprev: The sample prevalence.
+  - sampleprev: The sample prevalence.
 
-  4) popprev: The population prevalence.
+  - popprev: The population prevalence.
 
-  5) Cluster: This column lists the cluster information for each trait, used to group traits into clusters based on their genetic correlation patterns. The cluster information only affects the graphical representation in the analysis output.
+  - Cluster: This column lists the cluster information for each trait, used to group traits into clusters based on their genetic correlation patterns. The cluster information only affects the graphical representation in the analysis output.
 
 Ensure that the data in Correlation_input.csv matches the order wanted in the final plot (with the exception of the first trait, which must be the one from which the subtraction is conducted). The file should be placed in the same directory as the .R file and the .py file.
 
