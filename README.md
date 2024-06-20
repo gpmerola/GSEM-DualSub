@@ -1,5 +1,5 @@
 # GSEM Dual Subtraction
-A package to perform dual genomic subtraction on sumstats through [Genomic SEM](https://github.com/GenomicSEM/GenomicSEM). This tool facilitates the analysis of genetic correlations and the execution of synthetic GWAS on latent variables, aiding in the understanding of complex trait genetics.
+A package to perform dual and single genomic subtraction on sumstats through [Genomic SEM](https://github.com/GenomicSEM/GenomicSEM). This tool facilitates the analysis of genetic correlations and the execution of synthetic GWAS on latent variables, aiding in the understanding of complex trait genetics.
 
 Key features:
 
@@ -12,6 +12,8 @@ Key features:
 
 ## Overview of scripts
   - main.R: main script, with a customizable part at the beginning to set up variables and inputs.
+
+  - main_singlesub.R: alternate main script, to perform single subtraction (rename it main.R and follow the same steps).
 
   - plot.py: optional part of the code, to be executed after main.R, to plot the correlation graph.
 
