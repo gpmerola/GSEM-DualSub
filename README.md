@@ -9,6 +9,17 @@ Key features:
     
   - Comprehensive output files, including plots and summary statistics.
 
+## Table of Contents
+
+- [Overview of scripts](#overview-of-scripts)
+- [Prerequisites](#prerequisites)
+- [Setup](#setup)
+- [Usage](#usage)
+- [Settings](#settings)
+- [Output](#output)
+- [Troubleshooting](#troubleshooting)
+- [License](#license)
+- [Citations](#citations)
 
 ## Overview of scripts
   - main.R: main script, with a customizable part at the beginning to set up variables and inputs.
