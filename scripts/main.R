@@ -21,9 +21,9 @@ latentnames = c("NAME_OF_LATENT_VARIABLE_1", "NAME_OF_LATENT_VARIABLE_2", "NAME_
 
 output_name = "NAME_OF_OUTPUT_FILE" # Name of the output for the synthetic phenotype file.
 
-infofilter = 0.9 # Information score filter threshold.
+infofilter = 0.6 # Information score filter threshold.
 
-maffilter = 0.05 # Minor allele frequency filter threshold.
+maffilter = 0.01 # Minor allele frequency filter threshold.
 
 sample.prev = c(0.425, 0.346, 0.1013) # Vector of sample prevalence for each trait, 3 elements in the vector. Has to follow the same order as "files_input".
 
