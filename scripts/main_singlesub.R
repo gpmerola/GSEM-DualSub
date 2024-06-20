@@ -1,27 +1,38 @@
 files_input = c(
-  "/users/k2473476/proj/mdd_bmi/chronicpain_modified_final.tsv", 
-  "/users/k2473476/proj/mdd_chronic_income/DEPR14_ori_modified.gz")
-ref_file = "~/proj/CommonFiles/reference.1000G.maf.0.005.txt.gz"
-hm3 = "~/proj/CommonFiles/w_hm3.snplist" 
-paths_corr <- "/scratch/prj/gwas_sumstats/munged/"
-ld <- "~/proj/CommonFiles/eur_w_ld_chr/"
-wld <- ld
+  "PATH_TO_FIRST_GWAS_SUMSTATS", 
+  "PATH_TO_SECOND_GWAS_SUMSTATS") # List of file paths to cleaned GWAS summary statistics files, 2 elements in the vector.
 
-traitnames =c("Pain", "MDD") ### 2rd has to appear in the input csv
-latentnames =c("Pain_lat", "Depression_lat")
-output_name <- "Depression_filtered"
+ref_file = "PATH_TO_REFERENCE_PANEL" # File path to the reference panel.
 
+hm3 = "PATH_TO_HAPMAP_3_SNPLIST"  # File path to the HapMap 3 SNP list.
 
-infofilter = 0.6
-maffilter = 0.01
+paths_corr = "PATH_TO_CORRELATION_FILES" # Directory path for the files for the correlation.
 
-sample.prev <- c(NA, 0.346)
-population.prev <- c(NA, 0.10)
+ld = "PATH_TO_LD_REFERENCE_DATA" # Directory path to the linkage disequilibrium (LD) reference data.
 
-se.logit_vector = c(FALSE, FALSE)
-OLS_vector=c(TRUE, TRUE)
-linprob_vector= c(FALSE, FALSE)
-ncores = 32
+wld = ld # Directory path the weighted linkage disequilibrium (LD) reference data, if relevant. Otherwise set equal to "ld".
+
+traitnames = c("NAME_OF_TRAIT_1", "NAME_OF_TRAIT_2") # Names of traits for analysis, 2 elements in the vector. The second name should appear in the input CSV.
+
+latentnames = c("NAME_OF_LATENT_VARIABLE_1", "NAME_OF_LATENT_VARIABLE_2") # Names of latent variables corresponding to the traits, 2 elements in the vector.
+
+output_name = "NAME_OF_OUTPUT_FILE" # Name of the output for the synthetic phenotype file.
+
+infofilter = 0.6 # Information score filter threshold.
+
+maffilter = 0.01 # Minor allele frequency filter threshold.
+
+sample.prev = c(NA, 0.346) # Vector of sample prevalence for each trait, 2 elements in the vector.
+
+population.prev = c(NA, 0.10) # Vector of population prevalence for each trait, 2 elements in the vector.
+
+se.logit_vector = c(FALSE, FALSE) # Logical vector indicating if standard error of logit transformation should be used, 2 elements in the vector.
+
+OLS_vector = c(TRUE, TRUE) # Logical vector indicating if Ordinary Least Squares (OLS) regression should be used, 2 elements in the vector.
+
+linprob_vector = c(FALSE, FALSE) # Logical vector indicating if linear probability model should be used, 2 elements in the vector.
+
+ncores = NUMBER_OF_CPU_CORES # Number of CPU cores to use for computation.
 
 
 
